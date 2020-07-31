@@ -11,7 +11,8 @@ router.get('/', (req, res) => {
 pool
 .query(queryText)
 .then((response) => {
-    res.send(response.rows);
+    const movies = response.rows;
+    res.send(movies);
 })
 .catch ((err) => {
     console.log(err);

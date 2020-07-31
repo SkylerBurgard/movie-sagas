@@ -10,22 +10,34 @@ import logger from 'redux-logger';
 // Import saga middleware
 import createSagaMiddleware from 'redux-saga';
 import Axios from 'axios';
+import { put } from '../server/Router/movie.router';
 
 function* getMovie() {
   try {
-    const response = yield Axios.get('/api/display');
-    yield PushSubscription({
+    const response = yield Axios.get('/api/movie');
+    yield put({
       type: 'SET_MOVIE',
       payload: response.data,
     });
+  } catch (err) {
+    console.log(err);
   }
 }
 
-function* editMovie(action)
+function* getEditMovie(action) {
+  try {
+    yield Axios.post('/api/movie', action.payload);
+    yield put({
+      type: 'GET_MOVIE',
+    });
+  } catch (err) {
+    console.log(err);
+  }
+}
 // Create the rootSaga generator function
 function* rootSaga() {
   yield takeEvery('GET_MOVIE', getMovie);
-  yield takeEvery('GET_EDIT', getEdit);
+  yield takeEvery('GET_EDIT', getEditMovie);
 }
 
 // Create sagaMiddleware
