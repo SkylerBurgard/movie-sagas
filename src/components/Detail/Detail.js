@@ -4,6 +4,10 @@ import { connect } from 'react-redux';
 class Detail extends Component {
   componentDidMount() {
     console.log(this.props.match.params.id);
+    this.props.dispatch({
+      type: 'GET_MOVIE_DETAIL',
+      payload: this.props.match.params.id,
+    });
   }
   render() {
     return (

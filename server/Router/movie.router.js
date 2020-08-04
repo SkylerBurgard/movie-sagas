@@ -18,6 +18,24 @@ pool
     res.sendStatus(500);
   });
 
+router.get('/details/:id', (req, res) => {
+  const queryText = `SELECT movies.title, movies.poster, movies.description, array_agg(genres.name) as genres FROM movies
+  JOIN movie_genres ON movies.id=movie_genres.movie_id
+  JOIN genres ON movie_genres.genre_id=genres.id
+  WHERE movies.id=$1 GROUP BY movies.id;`;
+});
+
+pool
+  .query(queryText)
+  .then((response) => {
+    const movies = response.rows;
+    res.send(movies);
+  })
+  .catch((err) => {
+    console.log(err);
+    res.sendStatus(500);
+  });
+
 router.put;
 
 module.exports = router;
