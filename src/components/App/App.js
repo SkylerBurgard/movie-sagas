@@ -1,7 +1,7 @@
 import React, { Component } from 'react';
 import './App.css';
-import { HashRouter as Router, Route } from 'react-router-dom';
-import MovieList from '../MovieList/MovieList';
+import { HashRouter as Router, Route, Link } from 'react-router-dom';
+import Detail from '../Detail/Detail';
 
 class App extends Component {
   // Renders the entire app on the DOM
@@ -11,9 +11,10 @@ class App extends Component {
   render() {
     return (
       <div className="App">
+        <h1>Movie Saga</h1>
         <Router>
-          <p>Movie Saga</p>
-          <Route exact path="/" component={MovieList} />
+          <Route exact path="/" component={Home} />
+          <Route path="/detail/:id" component={Detail} />
         </Router>
       </div>
     );
