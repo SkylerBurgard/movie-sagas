@@ -26,10 +26,10 @@ router.get('/details/:id', (req, res) => {
 });
 
 pool
-  .query(queryText)
+  .query(queryText, [req.params.id])
   .then((response) => {
     const movies = response.rows;
-    res.send(movies);
+    res.send(response.rows[0]);
   })
   .catch((err) => {
     console.log(err);

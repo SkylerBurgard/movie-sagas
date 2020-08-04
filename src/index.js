@@ -38,7 +38,7 @@ function* getEditMovie(action) {
 function* getMovieDetail(action) {
   try {
     const response = yield Axios.get(`/api/movie/detail${action.payload}`);
-    console.log(response);
+    // console.log(response);
     yield put({
       type: 'SET_CURRENT_MOVIES',
     });
@@ -70,6 +70,8 @@ const currentMovie = (state = {}, action) => {
   switch (action.type) {
     case 'SET_CURRENT_MOVIE':
       return action.payload;
+    case 'CLEAR_CURRENT_MOVIE':
+      return {};
     default:
       return state;
   }
@@ -90,6 +92,7 @@ const storeInstance = createStore(
   combineReducers({
     movies,
     genres,
+    currentMovie,
   }),
   // Add sagaMiddleware to our store
   applyMiddleware(sagaMiddleware, logger)

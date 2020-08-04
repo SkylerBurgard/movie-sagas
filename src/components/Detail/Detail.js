@@ -9,10 +9,22 @@ class Detail extends Component {
       payload: this.props.match.params.id,
     });
   }
+
+  onBackClick = (event) => {
+    this.props.dispatch({ type: 'CLEAR_CURRENT_MOVIE' });
+    this.props.history.push('/');
+  };
   render() {
     return (
       <div>
-        <h1>Detail page</h1>
+        <button onClick={this.onBackClick}>Back</button>
+        {this.props.store.currentMovie.title ? (
+          <div>
+            <h1>{this.props.store.currentMovie.title}</h1>
+          </div>
+        ) : (
+          <div>Loading</div>
+        )}
       </div>
     );
   }
