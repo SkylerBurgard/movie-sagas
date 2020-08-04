@@ -12,7 +12,7 @@ import createSagaMiddleware from 'redux-saga';
 import Axios from 'axios';
 import { put } from '../server/Router/movie.router';
 
-function* getMovie() {
+function* getMovie(action) {
   try {
     const response = yield Axios.get('/api/movie');
     yield put({
